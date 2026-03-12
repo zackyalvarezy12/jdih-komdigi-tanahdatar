@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+
+class Propemda extends Model
+{
+    use HasFactory, HasSlug;
+
+    protected $table = 'propemdas';
+
+    protected $guarded = [];
+    protected $fillable = [
+        
+        'judul',
+        'slug',
+        'isi',
+        'gambar',
+        'tanggal',
+    ];
+
+    protected $casts = [
+        'tanggal' => 'date',
+    ];
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('judul')
+            ->saveSlugsTo('slug')
+            ->slugsShouldBeNoLongerThan(200);
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+}
