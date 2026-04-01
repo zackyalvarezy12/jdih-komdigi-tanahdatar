@@ -26,7 +26,7 @@
                 <div class="footer-socs">
                     <a href="" class="footer-soc"><i class="bi bi-facebook"></i></a>
                     <a href="https://www.instagram.com/jdihtanahdatar/" class="footer-soc"><i class="bi bi-instagram"></i></a>
-                    <a href="" class="footer-soc"><i class="bi bi-youtube"></i></a>
+                    <a href="https://www.youtube.com/channel/UC99df9QWiGA8fpVWSo0YtbQ" class="footer-soc"><i class="bi bi-youtube"></i></a>
                     <a href="https://twitter.com/jdihtanahdatar/" class="footer-soc"><i class="bi bi-twitter-x"></i></a>
                 </div>
             </div>
@@ -96,6 +96,41 @@ function toggleMenu(){
     m.style.display = o ? 'none' : 'block';
     i.className = o ? 'bi bi-list' : 'bi bi-x-lg';
 }
+
+// ════ DROPDOWN NAVBAR MOBILE — click toggle ════
+(function(){
+    // Hanya aktifkan di touchscreen
+    if(!('ontouchstart' in window) && navigator.maxTouchPoints === 0) return;
+
+    const dds = document.querySelectorAll('.nav-dd');
+
+    dds.forEach(function(dd){
+        const btn = dd.querySelector('.nav-btn');
+        if(!btn) return;
+
+        btn.addEventListener('click', function(e){
+            e.stopPropagation();
+            const isOpen = dd.classList.contains('open');
+            // Tutup semua
+            dds.forEach(function(d){ d.classList.remove('open'); });
+            // Toggle yang diklik
+            if(!isOpen) dd.classList.add('open');
+        });
+    });
+
+    // Klik di luar → tutup semua
+    document.addEventListener('click', function(){
+        dds.forEach(function(dd){ dd.classList.remove('open'); });
+    });
+
+    // Klik link di dalam menu → tutup
+    document.querySelectorAll('.nav-dd-menu a').forEach(function(a){
+        a.addEventListener('click', function(){
+            dds.forEach(function(dd){ dd.classList.remove('open'); });
+        });
+    });
+})();
+
 
 // ════ REGULASI TAB SWITCH ════
 function switchReg(id, btn){
@@ -267,6 +302,15 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 
     window.scrollBuku = function(dir){
         wrap.scrollBy({ left: dir * cardWidth(), behavior: 'smooth' });
+    };
+
+    // ════ ARTIKEL & INFOGRAFIS CAROUSEL MOBILE ════
+    window.scrollCarousel = function(id, dir) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const cardEl = el.querySelector('a, .inf-card');
+        const w = cardEl ? cardEl.offsetWidth + 12 : 200;
+        el.scrollBy({ left: dir * w, behavior: 'smooth' });
     };
 
     function updateBtns(){

@@ -139,14 +139,13 @@
 
 {{-- ════════════════════ CAT TABS ════════════════════ --}}
 <div class="cat-tabs">
-    <div class="container">
-        <div class="cat-tabs-inner">
-            <a href="#terbaru" class="cat-tab active"><i class="bi bi-lightning-charge"></i> Produk Terbaru</a>
-            <a href="#regulasi" class="cat-tab"><i class="bi bi-book"></i> Regulasi</a>
-            <a href="#dokumen" class="cat-tab"><i class="bi bi-file-earmark-text"></i> Dokumen Hukum</a>
-            <a href="#media" class="cat-tab"><i class="bi bi-grid-1x2"></i> Konten &amp; Media</a>
-            <a href="#berita" class="cat-tab"><i class="bi bi-newspaper"></i> Berita</a>
-        </div>
+    {{-- Tidak pakai .container agar full-width scroll di mobile --}}
+    <div class="cat-tabs-inner" style="padding:0 12px;">
+        <a href="#terbaru" class="cat-tab active"><i class="bi bi-lightning-charge"></i> Produk Terbaru</a>
+        <a href="#regulasi" class="cat-tab"><i class="bi bi-book"></i> Regulasi</a>
+        <a href="#dokumen" class="cat-tab"><i class="bi bi-file-earmark-text"></i> Dokumen Hukum</a>
+        <a href="#media" class="cat-tab"><i class="bi bi-grid-1x2"></i> Konten &amp; Media</a>
+        <a href="#berita" class="cat-tab"><i class="bi bi-newspaper"></i> Berita</a>
     </div>
 </div>
 
@@ -430,12 +429,13 @@ $activeDok = collect($dokGroups)->filter(fn($g) => $g['data']->count() > 0);
         </div>
         <div class="media-grid">
             @if($artikel->count())
-            <div class="reveal">
+            <div style="overflow:visible;min-width:0;">
                 <div class="blok-head">
                     <span><i class="bi bi-newspaper"></i> Artikel Terkini</span>
-                    <a href="{{ url('/daftar/artikel') }}">Lihat Semua <i class="bi bi-arrow-right"></i></a>
+                    <button class="sp-trigger" onclick="openPanel('artikel')">Lihat Semua <i class="bi bi-arrow-right"></i></button>
                 </div>
-                <div class="art-grid">
+                <div class="art-carousel-wrap" id="artCarouselWrap">
+                <div class="art-grid" id="artGrid">
                     @foreach($artikel->take(3) as $idx => $item)
                     <a href="{{ $item->slug ? route('artikel.show',$item->slug) : '#' }}" class="art-card {{ $idx===0?'art-featured':'' }}">
                         <div class="art-img">
@@ -453,17 +453,21 @@ $activeDok = collect($dokGroups)->filter(fn($g) => $g['data']->count() > 0);
                     </a>
                     @endforeach
                 </div>
+                <button class="carousel-mob-nav carousel-mob-prev" id="artPrev" onclick="scrollCarousel('artCarouselWrap',-1)" aria-label="Sebelumnya"><i class="bi bi-chevron-left"></i></button>
+                <button class="carousel-mob-nav carousel-mob-next" id="artNext" onclick="scrollCarousel('artCarouselWrap',1)" aria-label="Berikutnya"><i class="bi bi-chevron-right"></i></button>
+                </div>{{-- /art-carousel-wrap --}}
             </div>
             @endif
 
-            <div class="blok-side reveal" style="transition-delay:.18s">
+            <div class="blok-side" style="overflow:visible;min-width:0;">
                 @if($infografis->count())
                 <div>
                     <div class="blok-head">
                         <span><i class="bi bi-image"></i> Infografis</span>
-                        <a href="{{ url('/daftar/infografis') }}">Semua <i class="bi bi-arrow-right"></i></a>
+                        <button class="sp-trigger" onclick="openPanel('infografis')">Semua <i class="bi bi-arrow-right"></i></button>
                     </div>
-                    <div class="inf-grid">
+                    <div class="inf-carousel-wrap" id="infCarouselWrap">
+                    <div class="inf-grid" id="infGrid">
                         @foreach($infografis->take(4) as $item)
                         <a href="{{ $item->slug ? route('infografis.show',$item->slug) : '#' }}" class="inf-card">
                             <div class="inf-img">
@@ -477,6 +481,9 @@ $activeDok = collect($dokGroups)->filter(fn($g) => $g['data']->count() > 0);
                         </a>
                         @endforeach
                     </div>
+                    <button class="carousel-mob-nav carousel-mob-prev" id="infPrev" onclick="scrollCarousel('infCarouselWrap',-1)" aria-label="Sebelumnya"><i class="bi bi-chevron-left"></i></button>
+                    <button class="carousel-mob-nav carousel-mob-next" id="infNext" onclick="scrollCarousel('infCarouselWrap',1)" aria-label="Berikutnya"><i class="bi bi-chevron-right"></i></button>
+                    </div>{{-- /inf-carousel-wrap --}}
                 </div>
                 @endif
 
@@ -484,7 +491,7 @@ $activeDok = collect($dokGroups)->filter(fn($g) => $g['data']->count() > 0);
                 <div class="buku-section">
                     <div class="blok-head">
                         <span><i class="bi bi-book"></i> Perpustakaan Digital</span>
-                        <a href="{{ url('/daftar/buku') }}">Semua <i class="bi bi-arrow-right"></i></a>
+                        <button class="sp-trigger" onclick="openPanel('buku')">Semua <i class="bi bi-arrow-right"></i></button>
                     </div>
                     <div class="buku-carousel-wrap">
                         <div class="buku-carousel" id="bukuCarousel">
@@ -744,7 +751,7 @@ $activeDok = collect($dokGroups)->filter(fn($g) => $g['data']->count() > 0);
         </div>
     </div>
 </section>
-@endif@endif
+@endif
 {{-- ════════════════════ KONTAK ════════════════════ --}}
 <section class="sec-kontak">
     <div class="kontak-glow-a"></div>
@@ -869,3 +876,204 @@ $activeDok = collect($dokGroups)->filter(fn($g) => $g['data']->count() > 0);
 .kontak-link{color:rgba(255,255,255,.88);text-decoration:none;transition:color .2s;}
 .kontak-link:hover{color:var(--gold-light);text-decoration:underline;}
 </style>
+
+{{-- ════════════════════ SLIDE PANELS ════════════════════ --}}
+
+{{-- Overlay --}}
+<div class="slide-panel-overlay" id="spOverlay" onclick="closePanel()"></div>
+
+{{-- Panel: Artikel --}}
+<div class="slide-panel" id="sp-artikel">
+    <div class="sp-header">
+        <div class="sp-header-left">
+            <div class="sp-header-icon"><i class="bi bi-newspaper"></i></div>
+            <div>
+                <div class="sp-title">Artikel Terkini</div>
+                <div class="sp-subtitle">Artikel informatif seputar hukum daerah</div>
+            </div>
+        </div>
+        <button class="sp-close" onclick="closePanel()"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="sp-body">
+        @forelse($artikel as $item)
+        <a href="{{ $item->slug ? route('artikel.show',$item->slug) : '#' }}" class="sp-art-card">
+            <div class="sp-art-img">
+                @if(!empty($item->gambar))
+                    <img src="{{ asset('storage/'.$item->gambar) }}" alt="{{ $item->judul }}" loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=\'sp-art-ph\'><i class=\'bi bi-newspaper\'></i></div>'">
+                @else
+                    <div class="sp-art-ph"><i class="bi bi-newspaper"></i></div>
+                @endif
+            </div>
+            <div class="sp-art-body">
+                <div class="sp-art-title">{{ $item->judul }}</div>
+                <div class="sp-art-date"><i class="bi bi-calendar3"></i> {{ $item->created_at->format('d M Y') }}</div>
+            </div>
+        </a>
+        @empty
+        <p style="text-align:center;color:var(--gray-500);padding:32px 0;font-size:.84rem;">Belum ada artikel</p>
+        @endforelse
+    </div>
+    <div class="sp-footer">
+        <a href="{{ url('/daftar/artikel') }}"><i class="bi bi-arrow-right"></i> Lihat Semua Artikel</a>
+    </div>
+</div>
+
+{{-- Panel: Infografis --}}
+<div class="slide-panel" id="sp-infografis">
+    <div class="sp-header">
+        <div class="sp-header-left">
+            <div class="sp-header-icon"><i class="bi bi-image"></i></div>
+            <div>
+                <div class="sp-title">Infografis</div>
+                <div class="sp-subtitle">Visual informasi hukum menarik</div>
+            </div>
+        </div>
+        <button class="sp-close" onclick="closePanel()"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="sp-body">
+        @forelse($infografis as $item)
+        <div style="margin-bottom:16px;">
+        <a href="{{ $item->slug ? route('infografis.show',$item->slug) : '#' }}" class="sp-inf-card" style="display:block;">
+            <div class="sp-inf-img">
+                @if(!empty($item->file_infografis))
+                    <img src="{{ asset('storage/'.$item->file_infografis) }}" alt="Infografis" loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=\'sp-inf-ph\'><i class=\'bi bi-image\'></i></div>'">
+                @else
+                    <div class="sp-inf-ph"><i class="bi bi-image"></i></div>
+                @endif
+            </div>
+            <div class="sp-inf-date">{{ $item->created_at->format('d M Y') }}</div>
+        </a>
+        </div>
+        @empty
+        <p style="text-align:center;color:var(--gray-500);padding:32px 0;font-size:.84rem;">Belum ada infografis</p>
+        @endforelse
+    </div>
+    <div class="sp-footer">
+        <a href="{{ url('/daftar/infografis') }}"><i class="bi bi-arrow-right"></i> Lihat Semua Infografis</a>
+    </div>
+</div>
+
+{{-- Panel: Buku --}}
+<div class="slide-panel" id="sp-buku">
+    <div class="sp-header">
+        <div class="sp-header-left">
+            <div class="sp-header-icon"><i class="bi bi-book"></i></div>
+            <div>
+                <div class="sp-title">Perpustakaan Digital</div>
+                <div class="sp-subtitle">Koleksi buku hukum daerah</div>
+            </div>
+        </div>
+        <button class="sp-close" onclick="closePanel()"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="sp-body">
+        @php $spCoverColors = ['#1a3a8f','#059669','#d97706','#7c3aed','#dc2626','#0891b2','#db2777','#ea580c']; @endphp
+        @forelse($buku as $idx => $item)
+        <a href="{{ $item->slug ? route('buku.show',$item->slug) : '#' }}" class="sp-buku-card">
+            <div class="sp-buku-cover" style="background:{{ $spCoverColors[$idx % 8] }}">
+                @if(!empty($item->cover) || !empty($item->gambar))
+                    <img src="{{ asset('storage/'.($item->cover ?? $item->gambar)) }}" alt="{{ $item->judul }}"
+                         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                    <i class="bi bi-book" style="display:none"></i>
+                @else
+                    <i class="bi bi-book"></i>
+                @endif
+            </div>
+            <div class="sp-buku-body">
+                <div class="sp-buku-title">{{ $item->judul }}</div>
+                <div class="sp-buku-meta">
+                    <span class="badge badge-buku" style="font-size:.52rem">Buku</span>
+                    @if(!empty($item->tahun_terbit))<span>{{ $item->tahun_terbit }}</span>@endif
+                </div>
+            </div>
+        </a>
+        @empty
+        <p style="text-align:center;color:var(--gray-500);padding:32px 0;font-size:.84rem;">Belum ada buku</p>
+        @endforelse
+    </div>
+    <div class="sp-footer">
+        <a href="{{ url('/daftar/buku') }}"><i class="bi bi-arrow-right"></i> Lihat Semua Buku</a>
+    </div>
+</div>
+
+<style>
+/* ════ CAROUSEL MOB NAV BUTTONS ════ */
+.carousel-mob-nav {
+    display: none; /* hidden desktop */
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--white);
+    border: 1.5px solid var(--gray-200);
+    color: var(--navy); font-size: .85rem;
+    align-items: center; justify-content: center;
+    cursor: pointer; z-index: 10;
+    box-shadow: 0 4px 14px rgba(11,31,74,.15);
+    transition: background .2s, color .2s, opacity .2s;
+    padding: 0;
+}
+.carousel-mob-nav:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+.carousel-mob-prev { left: 4px; }
+.carousel-mob-next { right: 4px; }
+@media (max-width: 991px) {
+    .carousel-mob-nav { display: flex; }
+    /* Wrapper harus position:relative agar tombol absolute bisa benar */
+    .art-carousel-wrap,
+    .inf-carousel-wrap,
+    .buku-carousel-wrap { position: relative; }
+}
+</style>
+
+<script>
+// ════ SCROLL CAROUSEL UNIVERSAL (Artikel & Infografis) ════
+function scrollCarousel(wrapId, dir) {
+    const wrap = document.getElementById(wrapId);
+    if (!wrap) return;
+    const card = wrap.querySelector('.art-card, .inf-card');
+    const cardW = card ? card.offsetWidth + 12 : 200;
+    wrap.scrollBy({ left: dir * cardW, behavior: 'smooth' });
+    setTimeout(() => updateCarouselBtns(wrapId), 350);
+}
+
+function updateCarouselBtns(wrapId) {
+    const wrap = document.getElementById(wrapId);
+    if (!wrap) return;
+    const prefix = wrapId === 'artCarouselWrap' ? 'art' : 'inf';
+    const prev = document.getElementById(prefix + 'Prev');
+    const next = document.getElementById(prefix + 'Next');
+    if (prev) prev.style.opacity = wrap.scrollLeft <= 4 ? '.35' : '1';
+    if (next) next.style.opacity = wrap.scrollLeft >= wrap.scrollWidth - wrap.clientWidth - 4 ? '.35' : '1';
+}
+
+['artCarouselWrap', 'infCarouselWrap'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('scroll', () => updateCarouselBtns(id), { passive: true });
+});
+
+// ════ SLIDE PANEL ════
+let currentPanel = null;
+
+function openPanel(type) {
+    closePanel(false);
+    const panel = document.getElementById('sp-' + type);
+    const overlay = document.getElementById('spOverlay');
+    if (!panel) return;
+    currentPanel = panel;
+    overlay.classList.add('open');
+    panel.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closePanel(restore = true) {
+    const overlay = document.getElementById('spOverlay');
+    document.querySelectorAll('.slide-panel.open').forEach(p => p.classList.remove('open'));
+    overlay.classList.remove('open');
+    if (restore) document.body.style.overflow = '';
+    currentPanel = null;
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && currentPanel) closePanel();
+});
+</script>

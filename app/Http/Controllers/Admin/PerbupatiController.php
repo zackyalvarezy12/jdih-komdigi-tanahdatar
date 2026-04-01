@@ -26,11 +26,11 @@ class PerbupatiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nomor'            => 'required|unique:perbupatis,nomor',
+            'nomor'            => 'required|',
             'judul'            => 'required|min:5',
             'tahun'            => 'required|numeric',
             'status'           => 'required',
-            'file'             => 'required|mimes:pdf|max:10000',
+            'file'             => 'required|mimes:pdf|max:30000',
             'tempat_penetapan' => 'required',
             'tanggal'          => 'required|date',
             'sumber'           => 'required',

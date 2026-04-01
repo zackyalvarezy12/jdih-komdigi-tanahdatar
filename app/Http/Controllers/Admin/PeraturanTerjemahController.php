@@ -27,7 +27,7 @@ class PeraturanTerjemahController extends Controller
             'judul'        => 'required',
             'teu_pengarang'=> 'required',
             'tahun'        => 'required',
-            'file_pdf'     => 'nullable|mimes:pdf|max:10000',
+            'file_pdf'     => 'required|mimes:pdf|max:30000',
         ]);
 
         $data = $request->all();
@@ -63,7 +63,7 @@ class PeraturanTerjemahController extends Controller
             'judul'        => 'required',
             'teu_pengarang'=> 'required',
             'tahun'        => 'required',
-            'file_pdf'     => 'nullable|mimes:pdf|max:10000',
+            'file_pdf'     => 'nullable|mimes:pdf|max:30000',
         ]);
 
         $data = $request->all();

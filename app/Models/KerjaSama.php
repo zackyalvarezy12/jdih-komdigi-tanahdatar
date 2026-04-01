@@ -13,15 +13,7 @@ class KerjaSama extends Model
 
     protected $table = 'kerja_samas';
 
-    protected $guarded = [];
-    
-    protected $fillable = [
-        'judul',
-        'slug',
-        'isi',
-        'gambar',
-        'tanggal',
-    ];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'tanggal' => 'date',

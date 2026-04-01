@@ -25,11 +25,11 @@ class PerdaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nomor'   => 'required|unique:perdas,nomor',
+            'nomor'   => 'required|',
             'judul'   => 'required|min:10',
             'tahun'   => 'required|numeric|digits:4',
             'status'  => 'required',
-            'file'    => 'required|mimes:pdf|max:10000',
+            'file'    => 'required|mimes:pdf|max:30000',
             'tanggal' => 'required|date',
         ], [
             'nomor.required'   => 'Nomor Perda wajib diisi.',

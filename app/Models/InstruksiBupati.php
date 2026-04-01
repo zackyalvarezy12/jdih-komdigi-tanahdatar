@@ -15,14 +15,6 @@ class InstruksiBupati extends Model
 
     protected $guarded = ['id'];
 
-    protected $fillable = [
-        'judul',
-        'slug',
-        'isi',
-        'gambar',
-        'tanggal',
-    ];
-
     protected $casts = [
         'tanggal' => 'date',
     ];

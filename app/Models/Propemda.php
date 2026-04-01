@@ -13,15 +13,7 @@ class Propemda extends Model
 
     protected $table = 'propemdas';
 
-    protected $guarded = [];
-    protected $fillable = [
-        
-        'judul',
-        'slug',
-        'isi',
-        'gambar',
-        'tanggal',
-    ];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'tanggal' => 'date',

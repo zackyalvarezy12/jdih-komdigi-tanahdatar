@@ -57,7 +57,9 @@
         }
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
         html{scroll-behavior:smooth;}
-        body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--text);line-height:1.6;overflow-x:hidden;}
+        body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--text);line-height:1.6;}
+        html{overflow-x:hidden;}
+        body{overflow-x:clip;max-width:100vw;}
         ::selection{background:rgba(240,180,41,.25);color:var(--navy);}
         ::-webkit-scrollbar{width:5px;}
         ::-webkit-scrollbar-track{background:var(--gray-100);}
@@ -518,6 +520,190 @@
         #btt:hover{background:var(--navy-light);transform:translateY(-5px) scale(1.1);}
 
         /* ════════════════════════════════════════════
+           FIX MOBILE HOVER STUCK
+           Semua :hover effect dibungkus @media(hover:hover)
+           supaya di touchscreen tidak "nempel"
+        ════════════════════════════════════════════ */
+        @media (hover: hover) {
+            .doc-card:hover{border-color:rgba(11,31,74,.2);box-shadow:var(--sh-lg);transform:translateY(-5px);}
+            .doc-card:hover::before{transform:scaleX(1);}
+            .doc-card:hover .doc-title{color:var(--navy-light);}
+            .doc-card:hover .doc-arrow{background:var(--navy);color:var(--white);transform:translateX(3px);}
+            .reg-card:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,.3);}
+            .reg-card:hover::before{opacity:1;}
+            .reg-card:hover .reg-icon{transform:scale(1.12) rotate(-5deg);}
+            .reg-card:hover .reg-arrow{background:var(--acc,rgba(255,255,255,.2));color:var(--white);transform:translateX(4px);}
+            .dok-col:hover{box-shadow:var(--sh-lg);transform:translateY(-6px);}
+            .dok-col:hover .dok-icon{transform:scale(1.1) rotate(-6deg);}
+            .dok-item:hover{background:var(--gray-50);}
+            .dok-item:hover .dok-dot{transform:scale(1.7);}
+            .dok-item:hover .dok-item-title{color:var(--navy);}
+            .dok-item:hover .dok-item-arr{color:var(--acc,var(--navy));transform:translateX(4px);}
+            .art-card:hover{transform:translateY(-5px);box-shadow:var(--sh-lg);}
+            .art-card:hover .art-img img{transform:scale(1.08);}
+            .art-card:hover .art-title{color:var(--navy);}
+            .inf-card:hover .inf-img{transform:scale(1.05);box-shadow:var(--sh);}
+            .buku-item:hover{background:var(--gray-50);}
+            .buku-item:hover .buku-spine{transform:scale(1.08) rotate(-3deg);}
+            .buku-item:hover .buku-title{color:var(--navy);}
+            .buku-card:hover{transform:translateY(-8px);}
+            .buku-card:hover .buku-card-title{color:var(--navy);}
+            .berita-feat:hover{transform:translateY(-7px);box-shadow:0 30px 72px rgba(0,0,0,.4);}
+            .berita-feat:hover .berita-feat-img img{transform:scale(1.08);}
+            .berita-feat:hover .berita-read{gap:12px;}
+            .berita-item:hover{padding-left:8px;}
+            .berita-item:hover .b-title{color:var(--white);}
+            .berita-grid-card:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,.3);}
+            .berita-grid-card:hover .bgc-img img{transform:scale(1.08);}
+            .berita-grid-card:hover .bgc-title{color:var(--white);}
+            .bstrip-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 14px 36px rgba(11,31,74,.14);border-color:rgba(11,31,74,.2);}
+            .bstrip-card:hover .bstrip-img img{transform:scale(1.1);}
+            .bstrip-card:hover .bstrip-title{color:var(--navy);}
+            .hcat:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.24);transform:translateY(-5px) scale(1.05);box-shadow:0 14px 32px rgba(0,0,0,.25);}
+            .hcat:hover::after{opacity:1;}
+            .sbar-item:hover{background:rgba(255,255,255,.04);}
+            .sbar-item:hover::after{transform:scaleX(1);}
+            .sbar-item:hover .sbar-icon{transform:scale(1.18) rotate(-6deg);background:rgba(240,180,41,.15);}
+            .footer-soc:hover{background:var(--gold);color:var(--navy);transform:translateY(-4px) scale(1.1);}
+            .footer-col ul li a:hover{color:var(--gold-light);padding-left:4px;}
+        }
+        /* Hapus hover dari elemen yang pakai :hover langsung (override) */
+        .doc-card:hover,
+        .reg-card:hover,
+        .dok-col:hover,
+        .art-card:hover,
+        .buku-card:hover,
+        .berita-feat:hover,
+        .berita-grid-card:hover,
+        .bstrip-card:hover { transform: none; box-shadow: none; }
+        @media (hover: hover) {
+            .doc-card:hover { transform: translateY(-5px); box-shadow: var(--sh-lg); }
+            .reg-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,.3); }
+            .dok-col:hover { transform: translateY(-6px); box-shadow: var(--sh-lg); }
+            .art-card:hover { transform: translateY(-5px); box-shadow: var(--sh-lg); }
+            .buku-card:hover { transform: translateY(-8px); }
+            .berita-feat:hover { transform: translateY(-7px); box-shadow: 0 30px 72px rgba(0,0,0,.4); }
+            .berita-grid-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,.3); }
+            .bstrip-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 14px 36px rgba(11,31,74,.14); }
+        }
+
+        /* ════════════════════════════════════════════
+           SLIDE PANEL — Artikel / Infografis / Buku
+        ════════════════════════════════════════════ */
+        .slide-panel-overlay{
+            position:fixed;inset:0;background:rgba(6,15,35,.55);
+            z-index:1100;opacity:0;pointer-events:none;
+            transition:opacity .35s ease;backdrop-filter:blur(4px);
+        }
+        .slide-panel-overlay.open{opacity:1;pointer-events:all;}
+        .slide-panel{
+            position:fixed;top:0;right:0;bottom:0;
+            width:min(480px, 100vw);
+            background:var(--white);
+            z-index:1101;
+            transform:translateX(100%);
+            transition:transform .4s cubic-bezier(.4,0,.2,1);
+            display:flex;flex-direction:column;
+            box-shadow:-8px 0 48px rgba(11,31,74,.18);
+        }
+        .slide-panel.open{transform:translateX(0);}
+        .sp-header{
+            display:flex;align-items:center;justify-content:space-between;
+            padding:18px 22px;
+            border-bottom:1px solid var(--gray-100);
+            flex-shrink:0;
+        }
+        .sp-header-left{display:flex;align-items:center;gap:10px;}
+        .sp-header-icon{
+            width:36px;height:36px;border-radius:10px;
+            background:linear-gradient(135deg,var(--navy),var(--navy-light));
+            display:flex;align-items:center;justify-content:center;
+            color:var(--gold-light);font-size:.9rem;flex-shrink:0;
+        }
+        .sp-title{font-size:.95rem;font-weight:800;color:var(--navy);}
+        .sp-subtitle{font-size:.65rem;color:var(--gray-500);margin-top:1px;}
+        .sp-close{
+            width:34px;height:34px;border-radius:50%;
+            background:var(--gray-100);border:none;cursor:pointer;
+            display:flex;align-items:center;justify-content:center;
+            color:var(--gray-500);font-size:1rem;
+            transition:.2s;flex-shrink:0;
+        }
+        .sp-close:hover{background:var(--gray-200);color:var(--navy);}
+        .sp-body{flex:1;overflow-y:auto;padding:18px 22px;}
+        .sp-body::-webkit-scrollbar{width:4px;}
+        .sp-body::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:4px;}
+        .sp-footer{
+            padding:14px 22px;border-top:1px solid var(--gray-100);flex-shrink:0;
+        }
+        .sp-footer a{
+            display:flex;align-items:center;justify-content:center;gap:8px;
+            background:var(--navy);color:var(--white);text-decoration:none;
+            padding:12px;border-radius:var(--r-sm);font-size:.84rem;font-weight:700;
+            transition:.2s;
+        }
+        .sp-footer a:hover{background:var(--navy-light);color:var(--white);}
+
+        /* Artikel dalam panel */
+        .sp-art-card{
+            display:flex;gap:12px;padding:12px 0;
+            border-bottom:1px solid var(--gray-100);
+            text-decoration:none;color:inherit;
+            transition:.2s;
+        }
+        .sp-art-card:last-child{border-bottom:none;}
+        @media(hover:hover){.sp-art-card:hover{background:var(--gray-50);padding-left:6px;border-radius:8px;}}
+        .sp-art-img{
+            width:72px;height:56px;border-radius:8px;overflow:hidden;
+            background:var(--gray-100);flex-shrink:0;
+        }
+        .sp-art-img img{width:100%;height:100%;object-fit:cover;}
+        .sp-art-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--gray-300);}
+        .sp-art-body{flex:1;min-width:0;}
+        .sp-art-title{font-size:.78rem;font-weight:700;color:var(--text);line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:4px;}
+        .sp-art-date{font-size:.62rem;color:var(--gray-500);display:flex;align-items:center;gap:4px;}
+
+        /* Infografis dalam panel */
+        .sp-inf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+        .sp-inf-card{text-decoration:none;color:inherit;}
+        .sp-inf-img{height:110px;border-radius:10px;overflow:hidden;background:var(--gray-100);margin-bottom:5px;}
+        .sp-inf-img img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease;}
+        @media(hover:hover){.sp-inf-card:hover .sp-inf-img img{transform:scale(1.06);}}
+        .sp-inf-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--gray-300);}
+        .sp-inf-date{font-size:.59rem;color:var(--gray-500);text-align:center;}
+
+        /* Buku dalam panel */
+        .sp-buku-card{
+            display:flex;gap:12px;padding:10px 0;
+            border-bottom:1px solid var(--gray-100);
+            text-decoration:none;color:inherit;transition:.2s;
+        }
+        .sp-buku-card:last-child{border-bottom:none;}
+        @media(hover:hover){.sp-buku-card:hover{padding-left:6px;background:var(--gray-50);border-radius:8px;}}
+        .sp-buku-cover{
+            width:44px;height:60px;border-radius:5px 8px 8px 5px;
+            display:flex;align-items:center;justify-content:center;
+            color:rgba(255,255,255,.8);font-size:1rem;flex-shrink:0;
+            box-shadow:2px 3px 10px rgba(0,0,0,.18);overflow:hidden;
+        }
+        .sp-buku-cover img{width:100%;height:100%;object-fit:cover;}
+        .sp-buku-body{flex:1;min-width:0;}
+        .sp-buku-title{font-size:.78rem;font-weight:700;color:var(--text);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:4px;}
+        .sp-buku-meta{font-size:.62rem;color:var(--gray-500);display:flex;align-items:center;gap:5px;}
+
+        /* Tombol trigger panel di blok-head */
+        .sp-trigger{
+            display:inline-flex;align-items:center;gap:5px;
+            font-size:.74rem;font-weight:700;color:var(--navy);
+            text-decoration:none;opacity:.65;transition:.2s;cursor:pointer;
+            background:none;border:none;font-family:inherit;padding:0;
+        }
+        @media(hover:hover){.sp-trigger:hover{opacity:1;color:var(--gold);}}
+
+        /* Tombol nav carousel mobile — default hidden, tampil di ≤767px */
+        .carousel-mob-nav { display: none; }
+
+        /* ════════════════════════════════════════════
            ANIMATIONS & REVEAL
         ════════════════════════════════════════════ */
         @keyframes fadeUp{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
@@ -528,25 +714,229 @@
         .reveal-left.on{opacity:1;transform:translateX(0);}
         .reveal-scale{opacity:0;transform:scale(.92);transition:opacity .75s var(--slow),transform .75s var(--slow);}
         .reveal-scale.on{opacity:1;transform:scale(1);}
+        /* Mobile: nonaktifkan reveal transform agar tidak blokir touch scroll carousel */
+        @media(max-width:991px){
+            .reveal,.reveal-left,.reveal-scale{
+                opacity:1 !important;
+                transform:none !important;
+                transition:none !important;
+            }
+        }
 
         /* ════════════════════════════════════════════
-           RESPONSIVE
         ════════════════════════════════════════════ */
+
+        /* ════════════════════════════════════════════
+           OVERFLOW — cegah page scroll horizontal
+           CATATAN: body pakai clip bukan hidden supaya
+           carousel child tetap bisa scroll horizontal
+        ════════════════════════════════════════════ */
+        .topbar { overflow: hidden !important; }
+        .topbar-marquee { flex-shrink: 0; }
+        .berita-ticker-track { overflow: hidden !important; max-width: 100% !important; }
+
         @media(max-width:991px){
             .nav-links{display:none;}.ham{display:block;}
             .media-grid{grid-template-columns:1fr;}
             .berita-layout{grid-template-columns:1fr;}
             .reg-nav{justify-content:flex-start;}
+            /* BUKU — tombol nav sembunyi di tablet, aktifkan touch swipe */
+            .buku-nav { display: none !important; }
+            /* override: tampilkan di ≤767px via media query sendiri */
+            .buku-carousel-wrap {
+                position: relative;
+                overflow-x: auto;
+                overflow-y: visible;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+                padding: 8px 0 14px;
+                touch-action: pan-x;
+            }
+            .buku-carousel-wrap::-webkit-scrollbar { display: none; }
+            .buku-carousel {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow: visible !important;
+                width: max-content !important;
+                gap: 12px;
+                padding: 4px 20px 4px 4px;
+                scroll-behavior: smooth;
+                touch-action: pan-x;
+            }
+            .buku-card {
+                flex: 0 0 115px !important;
+                min-width: 115px !important;
+                width: 115px !important;
+                scroll-snap-align: start;
+                touch-action: pan-x;
+            }
+            .buku-cover {
+                width: 115px !important;
+                height: 160px !important;
+            }
+            .buku-carousel-wrap::after {
+                content: '';
+                position: absolute;
+                top: 0; right: 0; bottom: 14px;
+                width: 44px;
+                background: linear-gradient(to left, var(--white) 30%, transparent 100%);
+                pointer-events: none;
+                z-index: 3;
+            }
         }
+
         @media(max-width:767px){
             .hero-panel{display:none!important;}
+            .hero-inner{padding:72px 0 64px;}
             .sbar-inner{grid-template-columns:repeat(2,1fr);}
             .sbar-item{border-bottom:1px solid rgba(255,255,255,.06);}
             .dok-grid{grid-template-columns:1fr;}
-            .art-grid{grid-template-columns:1fr;}.art-featured{grid-column:auto;}
-            .inf-grid{grid-template-columns:repeat(2,1fr);}
             .reg-header{flex-direction:column;}
+            .berita-grid{grid-template-columns:1fr !important;}
+            .berita-feat{height:220px !important;}
+
+            /* ARTIKEL swipe horizontal */
+            .art-carousel-wrap {
+                position: relative;
+                overflow-x: auto;
+                overflow-y: visible;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+                padding-bottom: 10px;
+                width: 100%;
+                touch-action: pan-x;
+            }
+            .art-carousel-wrap::-webkit-scrollbar { display: none; }
+            .art-grid {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                width: max-content !important;
+                gap: 12px !important;
+                padding: 4px 20px 4px 4px !important;
+                grid-template-columns: none !important;
+                touch-action: pan-x;
+            }
+            .art-card, .art-featured {
+                flex: 0 0 220px !important;
+                min-width: 220px !important;
+                width: 220px !important;
+                scroll-snap-align: start;
+                grid-column: auto !important;
+                touch-action: pan-x;
+            }
+            .art-card .art-img,
+            .art-featured .art-img { height: 140px !important; }
+            .art-carousel-wrap::after {
+                content: '';
+                position: absolute;
+                top: 0; right: 0; bottom: 10px;
+                width: 44px;
+                background: linear-gradient(to left, var(--white) 30%, transparent 100%);
+                pointer-events: none;
+                z-index: 3;
+            }
+
+            /* INFOGRAFIS swipe horizontal */
+            .inf-carousel-wrap {
+                position: relative;
+                overflow-x: auto;
+                overflow-y: visible;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+                padding-bottom: 10px;
+                width: 100%;
+                touch-action: pan-x;
+            }
+            .inf-carousel-wrap::-webkit-scrollbar { display: none; }
+            .inf-grid {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                width: max-content !important;
+                gap: 10px !important;
+                padding: 4px 20px 4px 4px !important;
+                grid-template-columns: none !important;
+                touch-action: pan-x;
+            }
+            .inf-card {
+                flex: 0 0 140px !important;
+                min-width: 140px !important;
+                width: 140px !important;
+                scroll-snap-align: start;
+                touch-action: pan-x;
+            }
+            .inf-img { height: 110px !important; border-radius: 10px !important; }
+            .inf-carousel-wrap::after {
+                content: '';
+                position: absolute;
+                top: 0; right: 0; bottom: 10px;
+                width: 44px;
+                background: linear-gradient(to left, var(--white) 30%, transparent 100%);
+                pointer-events: none;
+                z-index: 3;
+            }
+
+            /* BUKU di ≤767px */
+            .buku-card {
+                flex: 0 0 105px !important;
+                min-width: 105px !important;
+                width: 105px !important;
+            }
+            .buku-cover {
+                width: 105px !important;
+                height: 148px !important;
+            }
+
+            /* TOMBOL NAV MOBILE — Artikel & Infografis */
+            .carousel-mob-nav {
+                display: flex !important;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-60%);
+                z-index: 10;
+                width: 34px; height: 34px;
+                border-radius: 50%;
+                border: none;
+                background: rgba(11,31,74,.75);
+                backdrop-filter: blur(6px);
+                color: #fff;
+                font-size: .85rem;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: background .2s, opacity .2s;
+                box-shadow: 0 2px 10px rgba(0,0,0,.22);
+            }
+            .carousel-mob-prev { left: 4px; }
+            .carousel-mob-next { right: 48px; }
+            .carousel-mob-nav:hover { background: var(--navy); }
+
+            /* Buku nav tombol — tampilkan di mobile (override display:none dari ≤991px) */
+            .buku-nav {
+                display: flex !important;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-60%);
+                z-index: 10;
+                width: 34px; height: 34px;
+                border-radius: 50%;
+                border: none;
+                background: rgba(11,31,74,.75);
+                backdrop-filter: blur(6px);
+                color: #fff;
+                font-size: .85rem;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: background .2s, opacity .2s;
+                box-shadow: 0 2px 10px rgba(0,0,0,.22);
+            }
+            .buku-nav-prev { left: 4px; }
+            .buku-nav-next { right: 48px; }
         }
+
         @media(max-width:575px){
             .hero h1{font-size:1.9rem;}
             .reg-title,.berita-title,.sec-title,.dok-title{font-size:1.65rem;}
@@ -554,6 +944,7 @@
             .topbar-marquee{animation-duration:16s;}
             .search-box button span{display:none;}
         }
+
 
         /* ══════════════════ BERITA FOTO STRIP (TOP) ══════════════════ */
         .berita-strip-section{background:var(--white);border-bottom:1px solid var(--gray-200);}
@@ -637,7 +1028,7 @@
 
         /* ══════════════════ BUKU CAROUSEL ══════════════════ */
         .buku-section{position:relative;}
-        .buku-carousel-wrap{position:relative;overflow:hidden;}
+        .buku-carousel-wrap{position:relative;overflow:visible;margin:0 -4px;padding:0 4px;}
         .buku-carousel{
             display:flex;gap:14px;
             overflow-x:scroll;
@@ -653,8 +1044,6 @@
             text-decoration:none;color:inherit;
             transition:transform .35s cubic-bezier(.34,1.56,.64,1);
         }
-        @media(max-width:768px){.buku-card{flex:0 0 calc((100% - 28px) / 3);}}
-        @media(max-width:480px){.buku-card{flex:0 0 calc((100% - 14px) / 2);}}
         .buku-card:hover{transform:translateY(-8px);}
         .buku-cover{
             width:100%;height:195px;border-radius:6px 12px 12px 6px;
@@ -821,15 +1210,133 @@
         .berita-grid-card:hover .bgc-title{color:var(--white);}
         .bgc-date{font-size:.63rem;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:4px;}
 
-        /* Responsive berita & buku */
+
+        /* ════════════════════════════════════════════
+           MOBILE FIX v2 — Carousel scroll + Dropdown
+        ════════════════════════════════════════════ */
+
+        /* FIX 1: reveal wrapper jangan blokir overflow carousel child */
         @media(max-width:991px){
-            .berita-grid{grid-template-columns:repeat(2,1fr);}
-            .buku-nav{display:none;}
+            .reveal, .reveal-left, .reveal-scale {
+                overflow: visible !important;
+            }
+            .art-carousel-wrap,
+            .inf-carousel-wrap,
+            .buku-carousel-wrap,
+            .blok-side,
+            .media-grid,
+            .sec-media {
+                overflow: visible !important;
+            }
+            .art-carousel-wrap,
+            .inf-carousel-wrap {
+                overflow-x: auto !important;
+                overflow-y: visible !important;
+                -webkit-overflow-scrolling: touch !important;
+                touch-action: pan-x !important;
+            }
         }
-        @media(max-width:767px){
-            .berita-grid{grid-template-columns:1fr;}
-            .berita-feat{height:220px;}
+
+        /* FIX 2: Dropdown mobile — nonaktifkan :hover, pakai .open class (dikontrol JS) */
+        @media(max-width:991px){
+            .nav-dd:hover .nav-dd-menu {
+                opacity: 0 !important;
+                pointer-events: none !important;
+                transform: translateY(-6px) scale(.97) !important;
+            }
+            .nav-dd.open .nav-dd-menu {
+                opacity: 1 !important;
+                pointer-events: all !important;
+                transform: translateY(0) scale(1) !important;
+            }
         }
+
+        /* ════════════════════════════════════════════
+           TOUCH DEVICE — nonaktifkan SEMUA hover effect
+           Ini menimpa seluruh CSS hover yang ada di atas.
+           @media(hover:none) = layar sentuh (HP/tablet)
+           @media(pointer:coarse) = input tidak presisi (jari)
+        ════════════════════════════════════════════ */
+        @media (hover: none), (pointer: coarse) {
+
+            /* ── Reset semua transform & shadow pada :hover ── */
+            .doc-card:hover,
+            .reg-card:hover,
+            .dok-col:hover,
+            .art-card:hover,
+            .buku-card:hover,
+            .berita-feat:hover,
+            .berita-grid-card:hover,
+            .bstrip-card:hover,
+            .hcat:hover,
+            .sbar-item:hover,
+            .inf-card:hover,
+            .berita-item:hover,
+            .search-box:focus-within,
+            .btn-all:hover,
+            .btn-all-navy:hover,
+            .btn-all-ghost:hover {
+                transform: none !important;
+                box-shadow: none !important;
+            }
+
+            /* ── Reset pseudo-element hover ── */
+            .doc-card:hover::after { transform: scaleX(0) !important; }
+            .reg-card:hover::before { opacity: 0 !important; }
+
+            /* ── Reset child element hover ── */
+            .doc-card:hover .doc-title { color: var(--text) !important; }
+            .doc-card:hover .doc-arrow { background: var(--gray-100) !important; color: var(--navy) !important; transform: none !important; }
+            .reg-card:hover .reg-icon { transform: none !important; }
+            .reg-card:hover .reg-arrow { transform: none !important; background: rgba(255,255,255,.08) !important; }
+            .dok-col:hover .dok-icon { transform: none !important; }
+            .dok-item:hover { background: transparent !important; }
+            .dok-item:hover .dok-dot { transform: none !important; }
+            .dok-item:hover .dok-item-title { color: var(--text) !important; }
+            .dok-item:hover .dok-item-arr { transform: none !important; color: var(--gray-300) !important; }
+            .art-card:hover .art-img img { transform: none !important; }
+            .art-card:hover .art-title { color: var(--text) !important; }
+            .inf-card:hover .inf-img { transform: none !important; box-shadow: none !important; }
+            .buku-card:hover .buku-card-title { color: var(--text) !important; }
+            .berita-feat:hover .berita-feat-img img { transform: none !important; }
+            .berita-feat:hover .berita-read { gap: 7px !important; }
+            .berita-item:hover { padding-left: 0 !important; }
+            .berita-item:hover .b-title { color: rgba(255,255,255,.82) !important; }
+            .berita-grid-card:hover .bgc-img img { transform: none !important; }
+            .berita-grid-card:hover .bgc-title { color: rgba(255,255,255,.85) !important; }
+            .bstrip-card:hover .bstrip-img img { transform: none !important; }
+            .bstrip-card:hover .bstrip-title { color: var(--text) !important; }
+            .sbar-item:hover .sbar-icon { transform: none !important; background: rgba(255,255,255,.1) !important; color: var(--gold-light) !important; }
+            .hcat:hover::after { opacity: 0 !important; }
+
+            /* ── Carousel: pastikan touch scroll bekerja ── */
+            .art-carousel-wrap,
+            .inf-carousel-wrap,
+            .buku-carousel-wrap {
+                overflow-x: auto !important;
+                overflow-y: visible !important;
+                -webkit-overflow-scrolling: touch !important;
+                touch-action: pan-x !important;
+            }
+
+            /* ── Reveal: jangan blokir touch scroll ── */
+            .reveal,
+            .reveal-left,
+            .reveal-scale {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+                overflow: visible !important;
+            }
+
+            /* ── Parent carousel wrapper harus visible ── */
+            .blok-side,
+            .media-grid > div,
+            .sec-media .reveal {
+                overflow: visible !important;
+            }
+        }
+
     </style>
 </head>
 <body>

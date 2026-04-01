@@ -13,15 +13,7 @@ class KeputusanBupati extends Model
 
     protected $table = 'keputusan_bupatis';
 
-    protected $guarded = [];
-
-    protected $fillable = [
-        'judul',
-        'slug',
-        'isi',
-        'gambar',
-        'tanggal',
-    ];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'tanggal' => 'date',

@@ -13,15 +13,7 @@ class Perbupati extends Model
 
     protected $table = 'perbupatis';
 
-    protected $guarded = [];
-
-    protected $fillable = [
-        'judul',
-        'slug',
-        'isi',
-        'gambar',
-        'tanggal',
-    ];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'tanggal' => 'date',

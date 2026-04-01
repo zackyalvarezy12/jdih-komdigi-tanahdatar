@@ -60,12 +60,16 @@ class ArtikelController extends Controller
             'subjek.required'        => 'Subjek wajib diisi.',
         ]);
 
-        $data = $request->all();
+        $data = $request->only([
+            'judul', 'konten', 'jenis_artikel', 'tempat_terbit',
+            'tahun', 'bahasa', 'sumber', 'bidang_hukum',
+            'lokasi', 'teu', 'subjek',
+        ]);
 
         // Generate slug unik dari judul
-        $slug = Str::slug($request->judul);
+        $slug         = Str::slug($request->judul);
         $originalSlug = $slug;
-        $count = 1;
+        $count        = 1;
         while (Artikel::where('slug', $slug)->exists()) {
             $slug = $originalSlug . '-' . $count++;
         }
@@ -86,20 +90,14 @@ class ArtikelController extends Controller
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil diterbitkan!');
     }
 
-    /**
-     * Edit - menerima encryptedId dari URL admin
-     */
     public function edit($encryptedId)
     {
-        $id     = Crypt::decryptString($encryptedId);
+        $id      = Crypt::decryptString($encryptedId);
         $artikel = Artikel::findOrFail($id);
 
         return view('admin.artikel.edit', compact('artikel', 'encryptedId'));
     }
 
-    /**
-     * Update - menerima encryptedId dari URL admin
-     */
     public function update(Request $request, $encryptedId)
     {
         $id      = Crypt::decryptString($encryptedId);
@@ -139,9 +137,13 @@ class ArtikelController extends Controller
             'subjek.required'        => 'Subjek wajib diisi.',
         ]);
 
-        $data = $request->all();
+        $data = $request->only([
+            'judul', 'konten', 'jenis_artikel', 'tempat_terbit',
+            'tahun', 'bahasa', 'sumber', 'bidang_hukum',
+            'lokasi', 'teu', 'subjek',
+        ]);
 
-        // Update slug jika judul berubah, tetap pastikan unik
+        // Update slug jika judul berubah
         $slug         = Str::slug($request->judul);
         $originalSlug = $slug;
         $count        = 1;
@@ -162,9 +164,6 @@ class ArtikelController extends Controller
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil diperbarui!');
     }
 
-    /**
-     * Destroy - menerima encryptedId dari URL admin
-     */
     public function destroy($encryptedId)
     {
         $id      = Crypt::decryptString($encryptedId);
@@ -179,9 +178,6 @@ class ArtikelController extends Controller
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil dihapus!');
     }
 
-    /**
-     * Show publik - menggunakan SLUG
-     */
     public function show($slug)
     {
         $artikel = Artikel::where('slug', $slug)->firstOrFail();

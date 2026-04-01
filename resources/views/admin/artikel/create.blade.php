@@ -12,8 +12,7 @@
         </a>
     </div>
 
-    {{-- novalidate: matikan validasi bawaan browser, serahkan ke Laravel --}}
-    <form action="{{ route('artikel.store') }}" method="POST" enctype="multipart/form-data" novalidate>
+    <form id="artikelForm" action="{{ route('artikel.store') }}" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
 
         <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.02); border: 1px solid #f1f5f9; margin-bottom: 30px;">
@@ -38,7 +37,7 @@
                 <label style="display: block; font-weight: 600; color: #334155; margin-bottom: 10px; font-size: 14px;">
                     Isi <span style="color: #ef4444;">*</span>
                 </label>
-                {{-- JANGAN tambahkan required di sini karena CKEditor menyembunyikan textarea asli --}}
+                {{-- ✅ textarea tetap ada, CKEditor akan sync ke sini sebelum submit --}}
                 <textarea name="konten" id="editor" style="width: 100%;">{{ old('konten') }}</textarea>
                 @error('konten')
                     <div style="display:flex; align-items:center; gap:6px; margin-top:8px; background:#fef2f2; border-left:4px solid #ef4444; border-radius:6px; padding:8px 12px;">
@@ -211,6 +210,22 @@
 
 <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
 <script>
-    ClassicEditor.create(document.querySelector('#editor')).catch(error => { console.error(error); });
+    let editorInstance;
+
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then(editor => {
+            editorInstance = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    
+    document.getElementById('artikelForm').addEventListener('submit', function () {
+        if (editorInstance) {
+            document.querySelector('#editor').value = editorInstance.getData();
+        }
+    });
 </script>
 @endsection
