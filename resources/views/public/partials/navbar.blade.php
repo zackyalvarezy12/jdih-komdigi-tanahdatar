@@ -9,7 +9,7 @@
     <div class="ws-bg"></div>
     <div class="ws-inner">
         <div class="ws-logo">
-            <img src="{{ asset('images/logoku.png') }}" alt="JDIH Logo" onerror="this.style.display='none'">
+            <img src="{{ asset('images/logo.png') }}" alt="JDIH Logo" onerror="this.style.display='none'">
         </div>
         <div class="ws-text">
             <div class="ws-selamat">Selamat Datang di</div>
@@ -126,12 +126,19 @@
         display: flex; align-items: center; gap: 10px;
     }
     .mob-header-logo {
-        width: 36px; height: 36px; border-radius: 50%;
+        width: 40px; height: 40px;
+        border-radius: 10px;               /* sudut rounded, bukan lingkaran */
         background: rgba(255,255,255,.15);
         border: 1.5px solid rgba(240,180,41,.4);
-        overflow: hidden; display: flex; align-items: center; justify-content: center;
+        overflow: hidden;
+        display: flex; align-items: center; justify-content: center;
+        padding: 3px;                      /* ruang napas logo perisai */
     }
-    .mob-header-logo img { width: 100%; height: 100%; object-fit: cover; }
+    .mob-header-logo img {
+        width: auto; height: 100%;
+        object-fit: contain;               /* jaga rasio asli */
+        border-radius: 0;
+    }
     .mob-header-name {
         font-family: 'Playfair Display', serif;
         font-size: .88rem; font-weight: 700;
@@ -269,7 +276,7 @@
                 {{-- Brand --}}
                 <a href="{{ url('/') }}" class="brand">
                     <div class="brand-logo">
-                        <img src="{{ asset('images/logoku.png') }}" alt="JDIH Logo"
+                        <img src="{{ asset('images/logo.png') }}" alt="JDIH Logo"
                              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
                         <span class="brand-logo-fallback" style="display:none">JD</span>
                     </div>
@@ -344,7 +351,7 @@
     <div class="mob-header">
         <div class="mob-header-brand">
             <div class="mob-header-logo">
-                <img src="{{ asset('images/logoku.png') }}" alt="Logo" onerror="this.style.display='none'">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" onerror="this.style.display='none'">
             </div>
             <div class="mob-header-name">JDIH <em>Tanah Datar</em></div>
         </div>

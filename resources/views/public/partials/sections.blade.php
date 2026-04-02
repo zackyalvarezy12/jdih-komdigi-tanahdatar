@@ -22,7 +22,7 @@
                     <div class="hero-badge-dot"></div>
                     Portal Resmi Kabupaten Tanah Datar
                 </div>
-                <h1>Portal Hukum &amp;<br><em>Regulasi Daerah</em></h1>
+                <h1>Portal Hukum &amp; <em>Regulasi Daerah</em></h1>
                 <p class="hero-desc">Temukan peraturan daerah, keputusan bupati, kajian hukum, dan seluruh dokumen resmi Kabupaten Tanah Datar dalam satu portal terpadu yang mudah diakses.</p>
                 <div class="hero-cta">
                     <a href="#regulasi" class="btn-primary-hero"><i class="bi bi-book-half"></i> Jelajahi Regulasi</a>
@@ -607,47 +607,6 @@ $activeDok = collect($dokGroups)->filter(fn($g) => $g['data']->count() > 0);
         </div>
         @endif
 
-        <style>
-        .bfeat-wrap{position:relative;border-radius:20px;overflow:hidden;user-select:none;}
-        .bfeat-track{display:flex;transition:transform .55s cubic-bezier(.4,0,.2,1);will-change:transform;cursor:grab;}
-        .bfeat-track.dragging{transition:none;cursor:grabbing;}
-        .bfeat-slide{flex:0 0 100%;min-width:100%;}
-
-        /* Tombol nav */
-        .bfeat-nav{
-            position:absolute;top:50%;transform:translateY(-50%);z-index:10;
-            width:42px;height:42px;border-radius:50%;border:none;
-            background:rgba(255,255,255,.18);backdrop-filter:blur(8px);
-            color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;
-            cursor:pointer;transition:background .2s,transform .2s;
-        }
-        .bfeat-nav:hover{background:rgba(255,255,255,.35);transform:translateY(-50%) scale(1.08);}
-        .bfeat-prev{left:14px;}
-        .bfeat-next{right:14px;}
-
-        /* Dots */
-        .bfeat-dots{
-            position:absolute;bottom:54px;left:50%;transform:translateX(-50%);
-            display:flex;gap:7px;z-index:10;
-        }
-        .bfeat-dot{
-            width:8px;height:8px;border-radius:50%;border:none;
-            background:rgba(255,255,255,.4);cursor:pointer;padding:0;
-            transition:background .25s,width .3s;
-        }
-        .bfeat-dot.active{background:#fff;width:26px;border-radius:4px;}
-
-        /* Progress bar */
-        .bfeat-progress{
-            position:absolute;bottom:0;left:0;right:0;height:3px;
-            background:rgba(255,255,255,.15);z-index:10;
-        }
-        .bfeat-progress-bar{
-            height:100%;background:var(--gold-light);width:0%;
-            transition:width linear;border-radius:0 2px 2px 0;
-        }
-        </style>
-
         <script>
         (function(){
             const track   = document.getElementById('bfeatTrack');
@@ -841,42 +800,6 @@ $activeDok = collect($dokGroups)->filter(fn($g) => $g['data']->count() > 0);
     </div>
 </section>
 
-<style>
-.sec-kontak{
-    position:relative;overflow:hidden;
-    background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 50%,#0d2255 100%);
-    padding:80px 0 64px;
-    border-top:1px solid rgba(240,180,41,.15);
-}
-.kontak-glow-a{position:absolute;top:-120px;left:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(240,180,41,.08) 0%,transparent 70%);pointer-events:none;}
-.kontak-glow-b{position:absolute;bottom:-100px;right:-60px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(26,58,143,.35) 0%,transparent 70%);pointer-events:none;}
-.sec-kontak .sec-eyebrow{color:var(--gold-light);border-color:rgba(240,180,41,.25);background:rgba(240,180,41,.08);padding:5px 14px;border-radius:20px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
-.kontak-header{text-align:center;margin-bottom:48px;}
-.kontak-layout{display:grid;grid-template-columns:1fr 2fr;gap:18px;align-items:stretch;}
-@media(max-width:860px){.kontak-layout{grid-template-columns:1fr;}}
-.kontak-right-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:18px;}
-@media(max-width:540px){.kontak-right-grid{grid-template-columns:1fr;}}
-
-/* Card Alamat khusus */
-.kontak-card-alamat{flex-direction:column;padding:0;overflow:hidden;gap:0;}
-.kca-info{display:flex;align-items:flex-start;gap:16px;padding:20px 20px 14px;}
-.kca-map{flex:1;min-height:180px;overflow:hidden;}
-.kca-map iframe{width:100%;height:100%;min-height:180px;display:block;border:0;}
-
-.kontak-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:0;align-items:stretch;}
-@media(max-width:900px){.kontak-grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:540px){.kontak-grid{grid-template-columns:1fr;}}
-.kontak-card{position:relative;overflow:hidden;display:flex;align-items:flex-start;gap:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:22px 20px;transition:transform .3s ease,background .3s ease,border-color .3s ease;backdrop-filter:blur(8px);}
-.kontak-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.09);border-color:rgba(240,180,41,.35);}
-.kontak-card-shine{position:absolute;top:-60px;right:-60px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(240,180,41,.06) 0%,transparent 70%);pointer-events:none;}
-.kontak-card-icon{flex-shrink:0;width:48px;height:48px;border-radius:13px;background:linear-gradient(145deg,var(--ic),var(--ic2));display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--white);border:1px solid rgba(255,255,255,.15);box-shadow:0 4px 14px rgba(0,0,0,.25);}
-.kontak-card-body{flex:1;min-width:0;}
-.kontak-card-label{font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-light);margin-bottom:7px;opacity:.85;}
-.kontak-card-val{font-size:.88rem;font-weight:500;color:rgba(255,255,255,.88);line-height:1.6;}
-.kontak-link{color:rgba(255,255,255,.88);text-decoration:none;transition:color .2s;}
-.kontak-link:hover{color:var(--gold-light);text-decoration:underline;}
-</style>
-
 {{-- ════════════════════ SLIDE PANELS ════════════════════ --}}
 
 {{-- Overlay --}}
@@ -996,34 +919,6 @@ $activeDok = collect($dokGroups)->filter(fn($g) => $g['data']->count() > 0);
         <a href="{{ url('/daftar/buku') }}"><i class="bi bi-arrow-right"></i> Lihat Semua Buku</a>
     </div>
 </div>
-
-<style>
-/* ════ CAROUSEL MOB NAV BUTTONS ════ */
-.carousel-mob-nav {
-    display: none; /* hidden desktop */
-    position: absolute;
-    top: 50%; transform: translateY(-50%);
-    width: 32px; height: 32px; border-radius: 50%;
-    background: var(--white);
-    border: 1.5px solid var(--gray-200);
-    color: var(--navy); font-size: .85rem;
-    align-items: center; justify-content: center;
-    cursor: pointer; z-index: 10;
-    box-shadow: 0 4px 14px rgba(11,31,74,.15);
-    transition: background .2s, color .2s, opacity .2s;
-    padding: 0;
-}
-.carousel-mob-nav:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
-.carousel-mob-prev { left: 4px; }
-.carousel-mob-next { right: 4px; }
-@media (max-width: 991px) {
-    .carousel-mob-nav { display: flex; }
-    /* Wrapper harus position:relative agar tombol absolute bisa benar */
-    .art-carousel-wrap,
-    .inf-carousel-wrap,
-    .buku-carousel-wrap { position: relative; }
-}
-</style>
 
 <script>
 // ════ SCROLL CAROUSEL UNIVERSAL (Artikel & Infografis) ════

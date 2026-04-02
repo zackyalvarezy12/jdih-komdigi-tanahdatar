@@ -32,7 +32,7 @@
             </div>
 
             {{-- Regulasi --}}
-            <div class="col-sm-4 col-lg-2 footer-col">
+            <div class="col-6 col-sm-4 col-lg-2 footer-col">
                 <h6>Regulasi</h6>
                 <ul>
                     <li><a href="{{ url('/daftar/perda') }}"><i class="bi bi-chevron-right"></i> Peraturan Daerah</a></li>
@@ -47,7 +47,7 @@
             </div>
 
             {{-- Dokumen Hukum --}}
-            <div class="col-sm-4 col-lg-3 footer-col">
+            <div class="col-6 col-sm-4 col-lg-3 footer-col">
                 <h6>Dokumen Hukum</h6>
                 <ul>
                     <li><a href="{{ url('/daftar/kajian') }}"><i class="bi bi-chevron-right"></i> Kajian Hukum</a></li>
@@ -59,7 +59,7 @@
             </div>
 
             {{-- Konten & Akses --}}
-            <div class="col-sm-4 col-lg-3 footer-col">
+            <div class="col-12 col-sm-4 col-lg-3 footer-col">
                 <h6>Konten &amp; Berita</h6>
                 <ul>
                     <li><a href="{{ url('/daftar/artikel') }}"><i class="bi bi-chevron-right"></i> Artikel</a></li>
