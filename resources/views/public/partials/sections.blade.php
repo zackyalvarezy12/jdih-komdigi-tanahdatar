@@ -100,36 +100,42 @@
     </div>
 </div>
 
-
 {{-- ════════════════════ STATS BAR ════════════════════ --}}
 <div class="stats-bar">
     <div class="container">
         <div class="sbar-inner">
+            {{-- PERDA --}}
             <a href="{{ url('/daftar/perda') }}" class="sbar-item">
                 <div class="sbar-icon"><i class="bi bi-file-earmark-ruled"></i></div>
                 <div class="sbar-info">
-                    <div class="sbar-num counter" data-target="{{ $stats['perda'] }}">0</div>
+                    <div class="sbar-num counter" data-target="{{ $stats['perda'] ?? 0 }}">{{ $stats['perda'] ?? 0 }}</div>
                     <div class="sbar-lbl">Peraturan Daerah</div>
                 </div>
             </a>
+
+            {{-- PERBUPATI --}}
             <a href="{{ url('/daftar/perbupati') }}" class="sbar-item">
                 <div class="sbar-icon"><i class="bi bi-file-earmark-check"></i></div>
                 <div class="sbar-info">
-                    <div class="sbar-num counter" data-target="{{ $stats['perbupati'] }}">0</div>
+                    <div class="sbar-num counter" data-target="{{ $stats['perbupati'] ?? 0 }}">{{ $stats['perbupati'] ?? 0 }}</div>
                     <div class="sbar-lbl">Peraturan Bupati</div>
                 </div>
             </a>
+
+            {{-- KAJIAN --}}
             <a href="{{ url('/daftar/kajian') }}" class="sbar-item">
                 <div class="sbar-icon"><i class="bi bi-journal-bookmark"></i></div>
                 <div class="sbar-info">
-                    <div class="sbar-num counter" data-target="{{ $stats['kajian'] }}">0</div>
+                    <div class="sbar-num counter" data-target="{{ $stats['kajian'] ?? 0 }}">{{ $stats['kajian'] ?? 0 }}</div>
                     <div class="sbar-lbl">Kajian Hukum</div>
                 </div>
             </a>
+
+            {{-- BERITA --}}
             <a href="{{ url('/daftar/berita') }}" class="sbar-item">
                 <div class="sbar-icon"><i class="bi bi-newspaper"></i></div>
                 <div class="sbar-info">
-                    <div class="sbar-num counter" data-target="{{ $stats['berita'] }}">0</div>
+                    <div class="sbar-num counter" data-target="{{ $stats['berita'] ?? 0 }}">{{ $stats['berita'] ?? 0 }}</div>
                     <div class="sbar-lbl">Berita Terkini</div>
                 </div>
             </a>

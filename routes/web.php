@@ -21,18 +21,19 @@ use App\Http\Controllers\Admin\RisalahHukumController;
 use App\Http\Controllers\Admin\RancanganPuuController;
 use App\Http\Controllers\Admin\InfografisController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Public\StatistikController;
 
 // =============================================================================
 // PUBLIK: Homepage & Daftar
 // =============================================================================
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/daftar/{kategori}', [HomeController::class, 'list'])->name('publik.list');
+Route::middleware(['track.page.views'])->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/daftar/{kategori}', [HomeController::class, 'list'])->name('publik.list');
+    Route::get('/statistik', [StatistikController::class, 'index'])->name('publik.statistik');
+    Route::get('/peraturan-terjemah/{slug}', [App\Http\Controllers\Admin\PeraturanTerjemahController::class, 'show'])->name('peraturan-terjemah.show');
+    Route::get('/cari', [HomeController::class, 'search'])->name('publik.search');
+});
 
-// Publik: Peraturan Terjemah detail
-Route::get('/peraturan-terjemah/{slug}', [App\Http\Controllers\Admin\PeraturanTerjemahController::class, 'show'])->name('peraturan-terjemah.show');
-
-// Publik: Search
-Route::get('/cari', [HomeController::class, 'search'])->name('publik.search');
 Route::get('/api/search-suggestions', [HomeController::class, 'searchSuggestions'])->name('publik.search.suggestions');
 
 

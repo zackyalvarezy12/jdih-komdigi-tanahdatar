@@ -291,6 +291,9 @@
                     <a href="{{ url('/') }}" class="{{ request()->is('/') ? 'active' : '' }}">
                         <i class="bi bi-house"></i> Beranda
                     </a>
+                    <a href="{{ route('publik.statistik') }}" class="{{ request()->is('statistik*') ? 'active' : '' }}">
+                        <i class="bi bi-bar-chart-fill"></i> Statistik
+                    </a>
                     <div class="nav-dd">
                         <button class="nav-btn"><i class="bi bi-book"></i> Regulasi <i class="bi bi-chevron-down" style="font-size:.5rem;margin-left:1px;"></i></button>
                         <div class="nav-dd-menu">
@@ -364,6 +367,9 @@
     <a href="{{ url('/') }}" class="mob-home-link">
         <i class="bi bi-house-fill"></i> Beranda
     </a>
+    <a href="{{ route('publik.statistik') }}" class="mob-home-link">
+        <i class="bi bi-bar-chart-fill"></i> Statistik
+    </a>
 
     {{-- Regulasi accordion --}}
     <div class="mob-group">
@@ -429,6 +435,7 @@
     <a href="{{ route('login') }}" class="mob-admin-link">
         <i class="bi bi-lock-fill"></i> Login Admin
     </a>
+
 
 </div>
 
