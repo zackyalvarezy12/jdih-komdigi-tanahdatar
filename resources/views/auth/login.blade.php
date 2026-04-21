@@ -128,8 +128,8 @@
                     @enderror
                 </div>
 
-                {{-- Remember + Forgot --}}
-                <div class="flex items-center justify-between">
+                {{-- Remember + kembali ke Beranda --}}
+               <div class="flex items-center justify-between">
                     <label class="flex items-center gap-2 cursor-pointer">
                         <input
                             id="remember_me" type="checkbox" name="remember"
@@ -138,9 +138,9 @@
                         <span class="text-sm text-stone-500">Ingat saya</span>
                     </label>
 
-                    @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}" class="text-xs text-stone-400 hover:text-red-800 transition">
-                            Lupa kata sandi?
+                    @if (Route::has('home'))
+                        <a href="{{ route('home') }}" class="text-xs text-stone-400 hover:text-red-800 transition">
+                            Kembali ke Beranda
                         </a>
                     @endif
                 </div>

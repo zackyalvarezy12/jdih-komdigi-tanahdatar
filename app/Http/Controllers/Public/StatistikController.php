@@ -29,9 +29,9 @@ class StatistikController extends Controller
                 'total' => DB::table('kajian_hukums')->count(),
             ],
             [
-                'label' => 'Berita',
-                'icon' => 'bi-newspaper',
-                'total' => DB::table('berita')->count(),
+                'label' => 'propemda',
+                'icon' => 'bi-people',
+                'total' => DB::table('propemdas')->count(),
             ],
             [
                 'label' => 'Keputusan Bupati',

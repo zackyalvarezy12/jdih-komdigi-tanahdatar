@@ -24,7 +24,7 @@
                 </div>
                 <p class="footer-desc">Jaringan Dokumentasi dan Informasi Hukum Kabupaten Tanah Datar. Menyediakan akses terbuka terhadap seluruh produk hukum daerah. Development by Zacky Alvarezy.</p>
                 <div class="footer-socs">
-                    <a href="" class="footer-soc"><i class="bi bi-facebook"></i></a>
+                    <a href="https://www.facebook.com/tanahdatar.id/" class="footer-soc"><i class="bi bi-facebook"></i></a>
                     <a href="https://www.instagram.com/jdihtanahdatar/" class="footer-soc"><i class="bi bi-instagram"></i></a>
                     <a href="https://www.youtube.com/channel/UC99df9QWiGA8fpVWSo0YtbQ" class="footer-soc"><i class="bi bi-youtube"></i></a>
                     <a href="https://twitter.com/jdihtanahdatar/" class="footer-soc"><i class="bi bi-twitter-x"></i></a>
