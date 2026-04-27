@@ -17,8 +17,7 @@ class Artikel extends Model
     protected $fillable = [
         'judul',
         'slug',
-        'konten',        // ← seragam dengan kolom database
-        'gambar',
+        'konten',        
         'jenis_artikel',
         'tempat_terbit',
         'tahun',
