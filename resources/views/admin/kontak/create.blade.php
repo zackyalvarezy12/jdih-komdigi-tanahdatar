@@ -13,7 +13,7 @@
         <div style="background: white; border-radius: 24px; padding: 40px; border: 1px solid #e2e8f0; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);">
             <form id="mainForm" action="{{ route('kontak.store') }}" method="POST" novalidate>
                 @csrf
-                
+
                 {{-- Nama & Email --}}
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 25px;">
                     <div>
@@ -66,7 +66,10 @@
                     </small>
                 </div>
 
-                <button type="submit" style="width: 100%; background: #10b981; color: white; padding: 16px; border-radius: 14px; border: none; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);">
+                {{-- Submit button — ID dipakai JS untuk disable setelah klik --}}
+                <button type="submit" id="submitBtn"
+                        style="width: 100%; background: #10b981; color: white; padding: 16px; border-radius: 14px; border: none; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);">
+                    <i class="fa-solid fa-floppy-disk" style="margin-right:8px;"></i>
                     Simpan Kontak
                 </button>
             </form>
@@ -75,69 +78,86 @@
 </div>
 
 <script>
-    function clearError(el) {
-        el.style.borderColor = '#10b981';
-        el.style.boxShadow = '0 0 0 3px rgba(16, 185, 129, 0.1)';
+// ── Guard: cegah double-submit ─────────────────────────────────────────────
+// Variabel flag — satu kali submit, selesai.
+let _isSubmitting = false;
+
+function clearError(el) {
+    el.style.borderColor = '#10b981';
+    el.style.boxShadow = '0 0 0 3px rgba(16, 185, 129, 0.1)';
+    const errEl = document.getElementById('err_' + el.id);
+    if (errEl) errEl.style.display = 'none';
+}
+
+function validateField(el) {
+    if (!el.value.trim()) {
+        el.style.borderColor = '#ef4444';
+        el.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
         const errEl = document.getElementById('err_' + el.id);
-        if (errEl) errEl.style.display = 'none';
+        if (errEl) errEl.style.display = 'block';
+        return false;
+    }
+    el.style.borderColor = '#10b981';
+    el.style.boxShadow = '0 0 0 3px rgba(16, 185, 129, 0.1)';
+    const errEl = document.getElementById('err_' + el.id);
+    if (errEl) errEl.style.display = 'none';
+    return true;
+}
+
+function validateEmail(el) {
+    const errEl  = document.getElementById('err_email');
+    const errMsg = document.getElementById('err_email_msg');
+    const regex  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!el.value.trim()) {
+        el.style.borderColor = '#ef4444';
+        el.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+        errMsg.textContent = 'Alamat Email wajib diisi.';
+        errEl.style.display = 'block';
+        return false;
+    }
+    if (!regex.test(el.value.trim())) {
+        el.style.borderColor = '#ef4444';
+        el.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+        errMsg.textContent = 'Format email tidak valid.';
+        errEl.style.display = 'block';
+        return false;
+    }
+    el.style.borderColor = '#10b981';
+    el.style.boxShadow = '0 0 0 3px rgba(16, 185, 129, 0.1)';
+    errEl.style.display = 'none';
+    return true;
+}
+
+document.getElementById('mainForm').addEventListener('submit', function(e) {
+    // ── Guard double-submit: jika sudah dalam proses submit, batalkan ──
+    if (_isSubmitting) {
+        e.preventDefault();
+        return;
     }
 
-    function validateField(el) {
-        if (!el.value.trim()) {
-            el.style.borderColor = '#ef4444';
-            el.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
-            const errEl = document.getElementById('err_' + el.id);
-            if (errEl) errEl.style.display = 'block';
-            return false;
-        } else {
-            el.style.borderColor = '#10b981';
-            el.style.boxShadow = '0 0 0 3px rgba(16, 185, 129, 0.1)';
-            const errEl = document.getElementById('err_' + el.id);
-            if (errEl) errEl.style.display = 'none';
-            return true;
-        }
-    }
-
-    function validateEmail(el) {
-        const errEl = document.getElementById('err_email');
-        const errMsg = document.getElementById('err_email_msg');
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!el.value.trim()) {
-            el.style.borderColor = '#ef4444';
-            el.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
-            errMsg.textContent = 'Alamat Email wajib diisi.';
-            errEl.style.display = 'block';
-            return false;
-        } else if (!emailRegex.test(el.value.trim())) {
-            el.style.borderColor = '#ef4444';
-            el.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
-            errMsg.textContent = 'Format email tidak valid.';
-            errEl.style.display = 'block';
-            return false;
-        } else {
-            el.style.borderColor = '#10b981';
-            el.style.boxShadow = '0 0 0 3px rgba(16, 185, 129, 0.1)';
-            errEl.style.display = 'none';
-            return true;
-        }
-    }
-
-    document.getElementById('mainForm').addEventListener('submit', function(e) {
-        let valid = true;
-
-        ['nama', 'subjek', 'pesan'].forEach(function(id) {
-            const el = document.getElementById(id);
-            if (!validateField(el)) valid = false;
-        });
-
-        if (!validateEmail(document.getElementById('email'))) valid = false;
-
-        if (!valid) {
-            e.preventDefault();
-            const firstErr = document.querySelector('small[style*="block"]');
-            if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+    // Validasi semua field
+    let valid = true;
+    ['nama', 'subjek', 'pesan'].forEach(function(id) {
+        const el = document.getElementById(id);
+        if (!validateField(el)) valid = false;
     });
+    if (!validateEmail(document.getElementById('email'))) valid = false;
+
+    if (!valid) {
+        e.preventDefault();
+        // Scroll ke error pertama
+        const firstErr = document.querySelector('small[style*="block"]');
+        if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+
+    _isSubmitting = true;
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+    btn.style.cursor  = 'not-allowed';
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i> Menyimpan...';
+});
 </script>
 @endsection

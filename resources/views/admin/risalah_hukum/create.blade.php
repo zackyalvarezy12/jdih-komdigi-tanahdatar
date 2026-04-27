@@ -169,4 +169,30 @@
         </div>
     </form>
 </div>
+
+<script>
+    // ── File PDF preview nama file saat dipilih ──
+    document.querySelector('input[type="file"][name="file_pdf"]').addEventListener('change', function() {
+        const zone   = this.closest('.rh-file-zone');
+        const icon   = zone.querySelector('.rh-file-icon i');
+        const title  = zone.querySelector('p');
+        const hint   = zone.querySelector('small');
+
+        if (this.files && this.files[0]) {
+            const file     = this.files[0];
+            const sizeMB   = (file.size / 1024 / 1024).toFixed(2);
+            const fileName = file.name.length > 40 ? file.name.substring(0, 37) + '...' : file.name;
+
+            // Ubah tampilan zona menjadi sukses
+            zone.style.borderColor  = '#10b981';
+            zone.style.background   = '#f0fdf4';
+            icon.className          = 'fa-solid fa-file-pdf';
+            icon.parentElement.style.background = '#dcfce7';
+            icon.parentElement.style.color      = '#16a34a';
+            title.innerHTML  = '<strong style="color:#16a34a">' + fileName + '</strong>';
+            hint.textContent = sizeMB + ' MB · Siap diunggah';
+            hint.style.color = '#16a34a';
+        }
+    });
+</script>
 @endsection

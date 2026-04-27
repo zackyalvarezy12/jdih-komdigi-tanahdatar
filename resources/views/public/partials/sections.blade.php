@@ -926,6 +926,7 @@ $activeDok = collect($dokGroups)->filter(fn($g) => $g['data']->count() > 0);
     </div>
 </div>
 
+
 <script>
 // ════ SCROLL CAROUSEL UNIVERSAL (Artikel & Infografis) ════
 function scrollCarousel(wrapId, dir) {

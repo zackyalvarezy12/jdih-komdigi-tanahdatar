@@ -14,18 +14,15 @@ class KajianHukum extends Model
     protected $guarded = [];
 
     protected $fillable = [
+        'type_dokumen',
         'judul',
         'slug',
-        'isi',
-        'gambar',
-        'tanggal',
+        'teu_pengarang',
+        'tahun',
+        'file_pdf',
+        'views',
     ];
 
-    /**
-     * Konfigurasi slug otomatis dari field 'judul'.
-     * Slug akan ikut berubah jika judul berubah.
-     * Jika TIDAK ingin slug berubah saat edit, tambahkan: ->doNotGenerateSlugsOnUpdate()
-     */
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -34,9 +31,6 @@ class KajianHukum extends Model
             ->slugsShouldBeNoLongerThan(200);
     }
 
-    /**
-     * Route model binding menggunakan slug (untuk halaman publik)
-     */
     public function getRouteKeyName(): string
     {
         return 'slug';

@@ -21,6 +21,7 @@ use App\Models\Artikel;
 use App\Models\Infografis;
 use App\Models\Buku;
 use App\Models\Berita;
+use App\Models\Kontak;
 
 class HomeController extends Controller
 {
@@ -58,6 +59,8 @@ class HomeController extends Controller
             'infografis' => Infografis::latest()->limit(8)->get(),
             'buku'       => Buku::latest()->limit(6)->get(),
             'berita'     => Berita::where('tampilkan', 'Ya')->latest()->limit(6)->get(),
+            'berita'     => Berita::where('tampilkan', 'Ya')->latest()->limit(6)->get(),
+            'kontaks'    => Kontak::latest()->get(),
         ]);
     }
 
@@ -138,7 +141,6 @@ class HomeController extends Controller
                 'icon'       => 'bi-file-earmark-check',
                 'badgeClass' => 'bc-perbupati',
                 'badgeLabel' => 'Perbupati',
-                // tidak ada kolom status di tabel perbupatis
                 'tahunCol'   => 'tahun',
                 'search'     => 'judul',
                 'group'      => 'Regulasi',
